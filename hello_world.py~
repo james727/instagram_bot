@@ -1,11 +1,8 @@
 import praw
 import instagram_converter
-
 user_agent = ('hello world 0.1')
 r = praw.Reddit(user_agent = user_agent)
-username = "InstaRepostBot"
-password = "Jhk73231"
-r.login(username, password)
+r.login()
 subreddit = r.get_subreddit("InstaRepostBot")
 already_done = []
 

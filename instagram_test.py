@@ -13,17 +13,20 @@ def link_type(url):
     return None
 
 def get_username(browser, item_id):
+    print "Getting username..."
     url = "https://www.instagram.com/p/"+item_id
     browser.get(url)
     source = BeautifulSoup(browser.page_source, 'lxml')
     return source.find_all('a')[1]['title']
 
 def get_item_id(url):
+    "Getting item id..."
     url_pieces = url.split('/')
     item_id = url_pieces[4]
     return item_id
 
 def get_media(username, item_id):
+    print "attempting to grab media.."
     url = 'http://instagram.com/' + username + '/media'
     try:
         media = json.loads(requests.get(url).text)
@@ -42,7 +45,9 @@ def get_media(username, item_id):
                 return media_type, images['standard_resolution']['url']
 
 def parse_instagram_url(url):
+    print "Got instagram URL.. parsing now.."
     item = get_item_id(url)
+    print "Opening selenium and grabbing username..."
     browser = webdriver.PhantomJS("/Applications/phantomjs")
     username = get_username(browser, item)
     media_type, url = get_media(username, item)
