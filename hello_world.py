@@ -1,11 +1,16 @@
 import praw
 import instagram_converter
-
-user_agent = ('hello world 0.1')
+from prawoauth2 import PrawOAuth2Mini
+key = "dFh4UjkvhdQIGw"
+secret = "0FS1_D2242Y-cdC2EiEZdTjZ6u4"
+token = "54589065-hluT2YOUajr1nTPdDokqFOGL_1g"
+refresh = "54589065-hvu78d_mz4VDyGMLRTNIveSoP2k"
+user_agent = ('instareposter 1.0')
 r = praw.Reddit(user_agent = user_agent)
-username = "InstaRepostBot"
-password = "Jhk73231"
-r.login(username, password)
+scopes = ['identity', 'read', 'submit']
+oauth_helper = PrawOAuth2Mini(r, app_key = key, app_secret = secret,
+                                access_token = token, refresh_token = refresh, scopes=scopes)
+oauth_helper.refresh()
 subreddit = r.get_subreddit("InstaRepostBot")
 already_done = []
 
